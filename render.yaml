@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: climate-hazard-backend
+    runtime: python
+    repo: https://github.com/aditya616727/climate-hazard-analyzer.git
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MONGO_URI
+        sync: false  # set manually in Render dashboard
+      - key: MONGO_DB
+        value: climate_hazards
+      - key: OPENAI_API_KEY
+        sync: false  # set manually in Render dashboard
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: RATE_LIMIT
+        value: 30/minute
+      - key: PYTHON_VERSION
+        value: "3.13"
